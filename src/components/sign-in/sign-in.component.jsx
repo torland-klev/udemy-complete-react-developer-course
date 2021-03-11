@@ -2,6 +2,7 @@ import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { withRouter } from "react-router-dom";
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
@@ -28,6 +29,10 @@ class SignIn extends React.Component {
     this.setState({ [name]: value })
   }
 
+  onLoginSuccess = () => {
+    this.props.history.push("/");
+  }
+
   render() {
     return(
       <div className='sign-in'>
@@ -49,13 +54,14 @@ class SignIn extends React.Component {
             label='password' 
             handleChange={this.handleChange} 
             required />
-
-          <CustomButton type='submit'>Sign In</CustomButton>
-          <CustomButton onClick={signInWithGoogle}>Sign In With Google</CustomButton>
+          <div className='buttons'>
+            <CustomButton type='submit'>Sign In</CustomButton>
+            <CustomButton onClick={() => signInWithGoogle().then(this.onLoginSuccess)} isGoogleSignIn>Sign In With Google</CustomButton>
+          </div>
         </form>
       </div>
     )
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);
