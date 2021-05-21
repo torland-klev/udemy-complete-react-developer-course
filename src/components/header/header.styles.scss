@@ -1,6 +1,7 @@
 .header {
   height: 70px;
   width: 100%;
+  min-width: 720px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
@@ -8,10 +9,8 @@
   .logo-container {
     height: 100%;
     width: 70px;
-    padding: 25px;
 
     &__logo {
-      padding: 0;
       width: inherit;
       max-height: 70px;
     }
@@ -23,6 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    font-size: larger;
 
     .option {
       padding: 10px 15px;

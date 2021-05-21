@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import i18next from 'i18next';
 
 import './App.css';
+import './i18n';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
@@ -21,6 +23,8 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
+    i18next.changeLanguage('no');
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -37,8 +41,6 @@ class App extends React.Component {
     })
   }
 
-
-
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
@@ -46,13 +48,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/signin' render={() => this.props.currentUser ? <Redirect to ='/'/> : <SignInAndSignUpPage />} />
-        </Switch>
+        <Suspense fallback={null}>
+          <Header />
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/checkout' component={CheckoutPage} />
+            <Route exact path='/signin' render={() => this.props.currentUser ? <Redirect to ='/'/> : <SignInAndSignUpPage />} />
+          </Switch>
+        </Suspense>
       </div>
     );
   }

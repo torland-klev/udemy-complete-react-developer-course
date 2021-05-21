@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -50,22 +51,27 @@ class SignUp extends React.Component {
     this.setState({[name]: value});
   }
 
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   render() {
     const { displayName, email, password, confirmPassword } = this.state;
+    const { t } = this.props;
     return(
       <div className='sign-up'>
-        <h2 className='title'>I do not have an account</h2>
-        <span>Sign up with your email and password</span>
+        <h2 className='title'>{t('text_have_not_account')}</h2>
+        <span>{t('text_sign_up_email_password')}</span>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <FormInput type='text' name='displayName' value={displayName} onChange={this.handleChange} label='Display Name' required/>
-          <FormInput type='email' name='email' value={email} onChange={this.handleChange} label='Email' required/>
-          <FormInput type='password' name='password' value={password} onChange={this.handleChange} label='Password' required/>
-          <FormInput type='password' name='confirmPassword' value={confirmPassword} onChange={this.handleChange} label='Confirm Password' required/>
-          <CustomButton type='submit'>SIGN UP</CustomButton>
+          <FormInput type='text' name='displayName' value={displayName} onChange={this.handleChange} label={t('text_display_name')} required/>
+          <FormInput type='email' name='email' value={email} onChange={this.handleChange} label={this.capitalizeFirstLetter(t('text_email'))} required/>
+          <FormInput type='password' name='password' value={password} onChange={this.handleChange} label={this.capitalizeFirstLetter(t('text_password'))} required/>
+          <FormInput type='password' name='confirmPassword' value={confirmPassword} onChange={this.handleChange} label={t('text_confirm_password')} required/>
+          <CustomButton type='submit'>{t('text_sign_up').toUpperCase()}</CustomButton>
         </form>
       </div>
     )
   }
 }
 
-export default SignUp;
+export default withTranslation()(SignUp);
