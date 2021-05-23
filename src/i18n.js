@@ -1,10 +1,10 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import Backend from "i18next-xhr-backend";
-import LanguageDetector from "i18next-browser-languagedetector";
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import Backend from 'i18next-xhr-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-const fallbackLng = ["no"];
-const availableLanguages = ["no", "en"];
+const fallbackLng = ['no']
+const availableLanguages = ['no', 'en']
 
 i18n
   .use(Backend)
@@ -20,6 +20,6 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-  });
+  })
 
-export default i18n;
+export default i18n

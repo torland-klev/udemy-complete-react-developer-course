@@ -1,16 +1,16 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
+import React from 'react'
+import { withTranslation } from 'react-i18next'
 
-import CollectionItem from "../collection-item/collection-item.component";
-import "./collection-preview.styles.scss";
+import CollectionItem from '../collection-item/collection-item.component'
+import './collection-preview.styles.scss'
 
 const CollectionPreview = ({ t, title, items }) => {
   return (
-    <div className="collection-preview">
-      <h1 className="title">
+    <div className='collection-preview'>
+      <h1 className='title'>
         {t(`text_${title.toLowerCase()}`).toUpperCase()}
       </h1>
-      <div className="preview">
+      <div className='preview'>
         {items
           .filter((item, idx) => idx < 4)
           .map((item) => (
@@ -18,7 +18,7 @@ const CollectionPreview = ({ t, title, items }) => {
           ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default withTranslation()(CollectionPreview);
+export default withTranslation()(CollectionPreview)
