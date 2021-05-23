@@ -1,7 +1,6 @@
-
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 const config = {
   apiKey: "AIzaSyD5_2MIcEFlJ1D3BsqtrApWt3PGEaOS8bU",
@@ -10,7 +9,7 @@ const config = {
   storageBucket: "udemy-react-course-7b37f.appspot.com",
   messagingSenderId: "112836877793",
   appId: "1:112836877793:web:cb57e727263ca28abe46a0",
-  measurementId: "G-25SM3M91GZ"
+  measurementId: "G-25SM3M91GZ",
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -29,15 +28,15 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
-      })
+        ...additionalData,
+      });
     } catch (error) {
-      console.log('Error creating user', error.message);
+      console.log("Error creating user", error.message);
     }
   }
 
   return userRef;
-}
+};
 
 firebase.initializeApp(config);
 
@@ -45,7 +44,7 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+provider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
