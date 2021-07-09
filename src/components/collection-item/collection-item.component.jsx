@@ -8,16 +8,17 @@ import {
   CollectionItemContainer,
   CollectionFooterContainer,
   AddButton,
-  BackgroundImage,
   NameContainer,
   PriceContainer,
 } from './collection-item.styles'
+import CollectionItemImage from './collection-item-image.component'
 
 const CollectionItem = ({ t, item, addItem }) => {
   const { name, price, imageUrl } = item
+
   return (
     <CollectionItemContainer>
-      <BackgroundImage className='image' imageUrl={imageUrl} />
+      <CollectionItemImage imageUrl={imageUrl} title={name} />
       <CollectionFooterContainer>
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
