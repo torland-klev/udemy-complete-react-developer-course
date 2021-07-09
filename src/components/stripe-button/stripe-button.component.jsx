@@ -14,7 +14,7 @@ const StripeCheckoutButton = ({ t, i18n, price }) => {
   return (
     <StripeCheckout
       label={t('text_pay_now')}
-      name='FinmarksFlue'
+      name='FinnmarksFlue'
       billingAddress
       shippingAddress
       currency='NOK'
