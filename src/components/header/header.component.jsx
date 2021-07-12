@@ -3,24 +3,22 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { withTranslation } from 'react-i18next'
 
-import { auth } from '../../firebase/firebase.utils'
-
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 import LanguageSwitcher from '../language-switcher/language-switcher.component'
 import { selectCartHidden } from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { signOutStart } from '../../redux/user/user.actions'
 
 import {
   HeaderContainer,
   LogoContainer,
   OptionsContainer,
-  OptionDiv,
   OptionLink,
   Logo,
 } from './header.styles'
 
-const Header = ({ t, currentUser, hidden }) => (
+const Header = ({ t, currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
     <LogoContainer to='/'>
       <Logo />
@@ -29,9 +27,9 @@ const Header = ({ t, currentUser, hidden }) => (
       <OptionLink to='/shop'>{t('text_shop').toUpperCase()}</OptionLink>
       <OptionLink to='/contact'>{t('text_contact').toUpperCase()}</OptionLink>
       {currentUser ? (
-        <OptionDiv onClick={() => auth.signOut()}>
+        <OptionLink as='div' onClick={signOutStart}>
           {t('text_sign_out').toUpperCase()}
-        </OptionDiv>
+        </OptionLink>
       ) : (
         <OptionLink to='/signin'>{t('text_sign_in').toUpperCase()}</OptionLink>
       )}
@@ -47,4 +45,10 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden,
 })
 
-export default withTranslation()(connect(mapStateToProps)(Header))
+const mapDispatchToProps = (dispatch) => ({
+  signOutStart: () => dispatch(signOutStart()),
+})
+
+export default withTranslation()(
+  connect(mapStateToProps, mapDispatchToProps)(Header)
+)
